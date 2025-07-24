@@ -50,7 +50,7 @@ public class Main {
         try {
                NumberProcessor.Result results = NumberProcessor.processArray(array);
 
-            System.out.println("Числа, делящиеся на 3 и 5: " + Arrays.toString(results.divisibleBy3And5));
+            System.out.println("Числа, делящиеся на 3 или 5: " + Arrays.toString(results.divisibleBy3Or5));
             System.out.println("Простые числа: " + Arrays.toString(results.primes));
             System.out.println("Максимальное значение: " + results.max);
             System.out.println("Минимальное значение: " + results.min);

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 public class NumberProcessor {
      public static class Result {
-        public int[] divisibleBy3And5;
+        public int[] divisibleBy3Or5;
         public int[] primes;
         public int max;
         public int min;
@@ -25,21 +25,21 @@ public class NumberProcessor {
             sum += num;
             if (num > result.max) result.max = num;
             if (num < result.min) result.min = num;
-            if (isDivisibleBy3And5(num)) {
+            if (isDivisibleBy3Or5(num)) {
                 divisibleList.add(num);
             }
             if (isPrime(num)) {
                 primesList.add(num);
             }
         }
-        result.divisibleBy3And5 = divisibleList.stream().mapToInt(i -> i).toArray();
+        result.divisibleBy3Or5 = divisibleList.stream().mapToInt(i -> i).toArray();
         result.primes = primesList.stream().mapToInt(i -> i).toArray();
         result.average = (double) sum / array.length;
         return result;
     }
 
-    private static boolean isDivisibleBy3And5(int number) {
-        return number != 0 && number % 3 == 0 && number % 5 == 0;
+    private static boolean isDivisibleBy3Or5(int number) {
+        return number % 3 == 0 || number % 5 == 0;
     }
 
     private static boolean isPrime(int number) {
