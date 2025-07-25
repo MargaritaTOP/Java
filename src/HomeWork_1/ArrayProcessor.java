@@ -2,7 +2,7 @@ package HomeWork_1;
 
 import java.util.ArrayList;
 import java.util.List;
-public class NumberProcessor {
+public class ArrayProcessor {
      public static class Result {
         public int[] divisibleBy3Or5;
         public int[] primes;
