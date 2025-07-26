@@ -28,7 +28,7 @@ class Employee extends Person implements EmployeeInfo {
     private String educationDegree;
     private String educationField;
     private String educationSpecialty;
-    private String address;
+
     private String position;
     private double salary;
     public Employee(String lastName, String firstName, String middleName,
@@ -40,7 +40,6 @@ class Employee extends Person implements EmployeeInfo {
         this.educationDegree = educationDegree;
         this.educationField = educationField;
         this.educationSpecialty = educationSpecialty;
-        this.address = address;
         this.position = position;
         this.salary = salary;
     }
@@ -71,13 +70,12 @@ class Employee extends Person implements EmployeeInfo {
 }
 class Client extends Person {
     private String company;
-    private String contactPhone;
     public Client(String lastName, String firstName, String middleName,
                   String gender, LocalDate birthDate, String company,
                   String contactPhone) {
         super(lastName, firstName, middleName, gender, birthDate);
         this.company = company;
-        this.contactPhone = contactPhone;
+
     }
     @Override
     public void displayBasicInfo() {

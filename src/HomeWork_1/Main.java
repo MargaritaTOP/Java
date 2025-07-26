@@ -1,8 +1,8 @@
 package HomeWork_1;
 
-import java.util.Scanner;
-import java.util.Random;
 import java.util.Arrays;
+import java.util.Random;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
@@ -48,7 +48,7 @@ public class Main {
 
     private static void processAndPrintResults(int[] array) {
         try {
-               NumberProcessor.Result results = NumberProcessor.processArray(array);
+               ArrayProcessor.Result results = ArrayProcessor.processArray(array);
 
             System.out.println("Числа, делящиеся на 3 или 5: " + Arrays.toString(results.divisibleBy3Or5));
             System.out.println("Простые числа: " + Arrays.toString(results.primes));
