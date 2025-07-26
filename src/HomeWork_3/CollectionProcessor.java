@@ -8,7 +8,6 @@ public class CollectionProcessor {
         if (numbers == null || numbers.isEmpty()) {
             throw new IllegalArgumentException("Коллекция не может быть пустой");
         }
-
         ArrayList<Integer> divisibleNumbers = new ArrayList<>();
         ArrayList<Integer> primeNumbers = new ArrayList<>();
 

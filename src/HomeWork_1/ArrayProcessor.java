@@ -1,7 +1,6 @@
 package HomeWork_1;
 
 import java.util.Arrays;
-
 public class ArrayProcessor {
     public static int[] getDivisibleBy3Or5(int[] array) {
         int[] temp = new int[array.length];
@@ -13,7 +12,6 @@ public class ArrayProcessor {
         }
         return Arrays.copyOf(temp, count);
     }
-
     public static int[] getPrimes(int[] array) {
         int[] temp = new int[array.length];
         int count = 0;
@@ -24,7 +22,6 @@ public class ArrayProcessor {
         }
         return Arrays.copyOf(temp, count);
     }
-
     public static int getMax(int[] array) {
         int max = array[0];
         for (int num : array) {
@@ -34,7 +31,6 @@ public class ArrayProcessor {
         }
         return max;
     }
-
     public static int getMin(int[] array) {
         int min = array[0];
         for (int num : array) {
@@ -44,7 +40,6 @@ public class ArrayProcessor {
         }
         return min;
     }
-
     public static double getAverage(int[] array) {
         int sum = 0;
         for (int num : array) {
@@ -52,11 +47,9 @@ public class ArrayProcessor {
         }
         return (double) sum / array.length;
     }
-
     private static boolean isDivisibleBy3Or5(int number) {
         return number % 3 == 0 || number % 5 == 0;
     }
-
     private static boolean isPrime(int number) {
         if (number <= 1) {
             return false;
