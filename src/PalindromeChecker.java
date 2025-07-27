@@ -6,7 +6,7 @@ public class PalindromeChecker {
         System.out.println("Введите фразу для проверки на палиндром:");
         String phrase = scanner.nextLine();
         String processed = phrase.replaceAll("[^а-яА-Яa-zA-Z]", "").toLowerCase();
-        boolean isPalindrome = processed.equals(new StringBuilder(processed).reverse().toString());
+        boolean isPalindrome = processed.contentEquals(new StringBuilder(processed).reverse());
         System.out.println("Фраза \"" + phrase + "\" " +
                 (isPalindrome ? "является палиндромом" : "не является палиндромом"));
         scanner.close();

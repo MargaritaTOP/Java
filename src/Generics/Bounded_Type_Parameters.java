@@ -1,7 +1,7 @@
 package Generics;
 //Ограничения типов (Bounded Type Parameters)
 public class Bounded_Type_Parameters<T extends Number> {
-    private T number;
+    private final T number;
     public Bounded_Type_Parameters(T number) {
         this.number = number;
     }
