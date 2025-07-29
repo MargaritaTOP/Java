@@ -1,23 +1,17 @@
 package HomeWork_1;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
-import java.util.Scanner;
-import java.util.stream.Collectors;
+import java.security.NoSuchAlgorithmException;
+import java.util.*;
 
 public class Main {
-    public static void main(String[] args) {
-        Random random = new Random();
+    public static void main(String[] args) throws NoSuchAlgorithmException {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Введите размер массива (n > 0): ");
         int n = scanner.nextInt();
-        int[] array = new int[n];
-        for (int i = 0; i < n; i++) {
-            array[i] = random.nextInt(100) + 1;
-        }
-        // Преобразуем массив в список для CollectionProcessor
-        List<Integer> list = Arrays.stream(array).boxed().collect(Collectors.toList());
+        // Генерация списка случайных чисел в одну строку с SecureRandom
+        List<Integer> list = generateRandomList(n, 100);
+        // Преобразуем список в массив для ArrayProcessor
+        int[] array = list.stream().mapToInt(Integer::intValue).toArray();
         System.out.println("\nИсходный массив: " + Arrays.toString(array));
         // Обработка через ArrayProcessor
         System.out.println("\nРезультаты ArrayProcessor:");
@@ -26,6 +20,12 @@ public class Main {
         System.out.println("\nРезультаты CollectionProcessor:");
         processWithCollectionProcessor(list);
         scanner.close();
+    }
+    public static List<Integer> generateRandomList(int size, int bound) throws NoSuchAlgorithmException {
+        return java.security.SecureRandom.getInstanceStrong()
+                .ints(size, 1, bound)
+                .boxed()
+                .collect(java.util.stream.Collectors.toCollection(ArrayList::new));
     }
     private static void processWithArrayProcessor(int[] array) {
         int[] divisibleBy3Or5 = ArrayProcessor.getDivisibleBy3Or5(array);

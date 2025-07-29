@@ -1,26 +1,21 @@
 package HomeWork_1;
 
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class CollectionProcessor {
+    // числа, делящиеся на 3 или 5
     public static List<Integer> getDivisibleBy3Or5(List<Integer> collection) {
-        List<Integer> result = new ArrayList<>();
-        for (int num : collection) {
-            if (isDivisibleBy3Or5(num)) {
-                result.add(num);
-            }
-        }
+        List<Integer> result = new ArrayList<>(collection);
+        result.removeIf(num -> !isDivisibleBy3Or5(num));
         return result;
     }
+    // простые числа
     public static List<Integer> getPrimes(List<Integer> collection) {
-        List<Integer> result = new ArrayList<>();
-        for (int num : collection) {
-            if (isPrime(num)) {
-                result.add(num);
-            }
-        }
+        List<Integer> result = new ArrayList<>(collection);
+        result.removeIf(num -> !isPrime(num));
         return result;
     }
     public static int getMax(List<Integer> collection) {
