@@ -1,0 +1,152 @@
+package HomeWork_6.Abramian_Taskbook;
+
+import java.security.SecureRandom;
+import java.util.Arrays;
+import java.util.Scanner;
+
+ /* УСЛОВИЕ ЗАДАЧИ
+ Дан целочисленный массив размера N, все элементы которого упорядочены (по возрастанию или по убыванию).
+ Найти количество различных элементов в данном массиве.
+ */
+
+public class Array43 {
+    public static long countDistinctElements(int[] array) {
+        if (array == null || array.length == 0) {
+            throw new IllegalArgumentException("Массив должен быть не null и содержать как минимум 1 элемент");
+        }
+        // Используем Stream для подсчета различных элементов
+        return Arrays.stream(array)
+                .distinct()
+                .count();
+    }
+    // Проверка, является ли массив упорядоченным (по возрастанию или убыванию)
+    public static boolean isSorted(int[] array) {
+        if (array.length <= 1) {
+            return true;
+        }
+        boolean ascending = array[1] >= array[0];
+        for (int i = 1; i < array.length - 1; i++) {
+            if (ascending) {
+                if (array[i + 1] < array[i]) {
+                    return false;
+                }
+            } else {
+                if (array[i + 1] > array[i]) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        SecureRandom random = new SecureRandom();
+        int n;
+        // 1. Ввод размера массива
+        while (true) {
+            System.out.print("Введите размер массива (N > 0): ");
+            if (scanner.hasNextInt()) {
+                n = scanner.nextInt();
+                if (n > 0) {
+                    break;
+                } else {
+                    System.out.println("Ошибка: размер массива должен быть больше 0");
+                }
+            } else {
+                System.out.println("Ошибка: введите целое число");
+                scanner.next(); // Очистка некорректного ввода
+            }
+        }
+        // 2. Выбор способа ввода массива
+        int choice;
+        System.out.println("\nВыберите способ ввода массива:");
+        System.out.println("1. Ввести массив вручную (массив должен быть упорядочен по возрастанию или убыванию)");
+        System.out.println("2. Сгенерировать случайный упорядоченный массив");
+        while (true) {
+            System.out.print("Введите 1 или 2: ");
+            if (scanner.hasNextInt()) {
+                choice = scanner.nextInt();
+                if (choice == 1 || choice == 2) {
+                    break;
+                } else {
+                    System.out.println("Ошибка: выберите 1 или 2");
+                }
+            } else {
+                System.out.println("Ошибка: введите целое число");
+                scanner.next();
+            }
+        }
+        int[] array;
+        if (choice == 1) {
+            // 3. Ручной ввод массива с проверкой упорядоченности
+            while (true) {
+                array = new int[n];
+                System.out.println("\nВведите " + n + " ненулевых целых чисел (упорядоченных по возрастанию или убыванию):");
+                for (int i = 0; i < n; i++) {
+                    while (true) {
+                        System.out.print("Элемент " + (i + 1) + ": ");
+                        if (scanner.hasNextInt()) {
+                            int num = scanner.nextInt();
+                            if (num != 0) {
+                                array[i] = num;
+                                break;
+                            } else {
+                                System.out.println("Ошибка: число не должно быть нулевым");
+                            }
+                        } else {
+                            System.out.println("Ошибка: введите целое число");
+                            scanner.next();
+                        }
+                    }
+                }
+                if (isSorted(array)) {
+                    break;
+                } else {
+                    System.out.println("Ошибка: массив не упорядочен по возрастанию или убыванию. Попробуйте снова.");
+                }
+            }
+        } else {
+            // 4. Ввод диапазона случайных чисел
+            int lowerBound, upperBound;
+            while (true) {
+                System.out.print("\nВведите нижнюю границу диапазона чисел: ");
+                if (scanner.hasNextInt()) {
+                    lowerBound = scanner.nextInt();
+                    break;
+                } else {
+                    System.out.println("Ошибка: введите целое число");
+                    scanner.next();
+                }
+            }
+            while (true) {
+                System.out.print("Введите верхнюю границу диапазона чисел (больше или равно нижней): ");
+                if (scanner.hasNextInt()) {
+                    upperBound = scanner.nextInt();
+                    if (upperBound >= lowerBound) {
+                        break;
+                    } else {
+                        System.out.println("Ошибка: верхняя граница должна быть больше или равна нижней");
+                    }
+                } else {
+                    System.out.println("Ошибка: введите целое число");
+                    scanner.next();
+                }
+            }
+            // Генерация случайного упорядоченного массива ненулевых чисел
+            array = random.ints(n, lowerBound, upperBound + 1)
+                    .map(num -> num == 0 ? (lowerBound != 0 ? lowerBound : 1) : num) // Исключаем 0
+                    .sorted() // Упорядочиваем по возрастанию
+                    .toArray();
+        }
+        // Вывод массива
+        System.out.println("\nМассив: " + Arrays.toString(array));
+        // Подсчет количества различных элементов и вывод результата
+        try {
+            long result = countDistinctElements(array);
+            System.out.println("Количество различных элементов: " + result);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Ошибка: " + e.getMessage());
+        }
+        scanner.close();
+    }
+}
