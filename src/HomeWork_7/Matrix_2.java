@@ -75,9 +75,8 @@ public class Matrix_2 {
         // Вычисление частот чисел в каждой строке
         System.out.println("\nЧастоты чисел в каждой строке (упорядочены по убыванию частоты):");
         for (int i = 0; i < rows; i++) {
-            final int rowIndex = i;
             // Создаем словарь частот для текущей строки с использованием Stream API
-            Map<Integer, Long> frequencyMap = matrix.get(rowIndex).stream()
+            Map<Integer, Long> frequencyMap = matrix.get(i).stream()
                     .collect(Collectors.groupingBy(
                             num -> num, // Ключ - число
                             Collectors.counting() // Значение - частота
@@ -98,7 +97,7 @@ public class Matrix_2 {
                             LinkedHashMap::new // Сохраняем порядок
                     ));
             // Выводим словарь частот для строки
-            System.out.printf("Строка %d: %s%n", (rowIndex + 1), sortedFrequencyMap);
+            System.out.printf("Строка %d: %s%n", (i + 1), sortedFrequencyMap);
         }
         scanner.close();
     }
