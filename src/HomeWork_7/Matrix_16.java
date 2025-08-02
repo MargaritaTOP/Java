@@ -5,69 +5,68 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 /* УСЛОВИЕ ЗАДАЧИ
- 16.	Вычесть из каждого элемента строк квадратной матрицы среднее арифметическое главной диагонали.
+ 16. Вычесть из каждого элемента строк квадратной матрицы среднее арифметическое главной диагонали.
 */
-
 public class Matrix_16 {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        var scanner = new Scanner(System.in); // Создаем объект Scanner для чтения ввода пользователя
         // Запрашиваем размер квадратной матрицы
         System.out.print("Введите размер квадратной матрицы (n): ");
-        int n = scanner.nextInt();
+        int n = scanner.nextInt(); // Считываем размер матрицы
         // Проверка корректности ввода
-        if (n <= 0) {
+        if (n <= 0) { // Проверяем, что размер матрицы положительный
             System.out.println("Ошибка: размер матрицы должен быть положительным!");
-            return;
+            return; // Завершаем программу при некорректном вводе
         }
         // Создаем матрицу как List<List<Integer>>
-        List<List<Integer>> matrix = new ArrayList<>();
+        List<List<Integer>> matrix = new ArrayList<>(); // Инициализируем пустую матрицу как список списков
         // Запрашиваем способ заполнения матрицы
         System.out.println("Выберите способ заполнения матрицы:");
         System.out.println("1. Вручную");
         System.out.println("2. Автоматически (случайные числа)");
         System.out.print("Введите 1 или 2: ");
-        int choice = scanner.nextInt();
+        int choice = scanner.nextInt(); // Считываем выбор способа заполнения
         switch (choice) {
             case 1:
                 // Ручное заполнение матрицы
                 System.out.println("Введите элементы матрицы:");
-                for (int i = 0; i < n; i++) {
-                    List<Integer> row = new ArrayList<>();
-                    for (int j = 0; j < n; j++) {
-                        System.out.printf("Элемент [%d][%d]: ", i, j);
-                        row.add(scanner.nextInt());
+                for (int i = 0; i < n; i++) { // Перебираем строки
+                    List<Integer> row = new ArrayList<>(); // Создаем новую строку
+                    for (int j = 0; j < n; j++) { // Перебираем столбцы
+                        System.out.printf("Элемент [%d][%d]: ", i, j); // Запрашиваем элемент
+                        row.add(scanner.nextInt()); // Добавляем введенный элемент в строку
                     }
-                    matrix.add(row);
+                    matrix.add(row); // Добавляем заполненную строку в матрицу
                 }
                 break;
             case 2:
                 // Автоматическое заполнение случайными числами
-                Random random = new Random();
-                for (int i = 0; i < n; i++) {
-                    List<Integer> row = new ArrayList<>();
-                    for (int j = 0; j < n; j++) {
+                Random random = new Random(); // Создаем объект Random для генерации чисел
+                for (int i = 0; i < n; i++) { // Перебираем строки
+                    List<Integer> row = new ArrayList<>(); // Создаем новую строку
+                    for (int j = 0; j < n; j++) { // Перебираем столбцы
                         // Генерируем числа от -100 до 100
-                        row.add(random.nextInt(201) - 100);
+                        row.add(random.nextInt(201) - 100); // Добавляем случайное число в строку
                     }
-                    matrix.add(row);
+                    matrix.add(row); // Добавляем заполненную строку в матрицу
                 }
                 break;
             default:
                 System.out.println("Ошибка: неверный выбор! Используется автоматическое заполнение.");
                 // Заполнение случайными числами по умолчанию
-                Random defaultRandom = new Random();
-                for (int i = 0; i < n; i++) {
-                    List<Integer> row = new ArrayList<>();
-                    for (int j = 0; j < n; j++) {
-                        row.add(defaultRandom.nextInt(201) - 100);
+                Random defaultRandom = new Random(); // Создаем объект Random для случая по умолчанию
+                for (int i = 0; i < n; i++) { // Перебираем строки
+                    List<Integer> row = new ArrayList<>(); // Создаем новую строку
+                    for (int j = 0; j < n; j++) { // Перебираем столбцы
+                        row.add(defaultRandom.nextInt(201) - 100); // Добавляем случайное число
                     }
-                    matrix.add(row);
+                    matrix.add(row); // Добавляем заполненную строку в матрицу
                 }
         }
         // Вывод исходной матрицы
         System.out.println("\nИсходная матрица:");
-        for (List<Integer> row : matrix) {
-            System.out.println(row);
+        for (List<Integer> row : matrix) { // Перебираем строки матрицы
+            System.out.println(row); // Выводим каждую строку
         }
         // Вычисляем среднее арифметическое главной диагонали
         double diagonalMean;
@@ -78,18 +77,18 @@ public class Matrix_16 {
         // Вывод средней арифметической главной диагонали
         System.out.printf("\nСреднее арифметическое главной диагонали: %.2f%n", diagonalMean);
         // Создаем результирующую матрицу, вычитая среднее из каждого элемента
-        List<List<Double>> resultMatrix = new ArrayList<>();
-        for (List<Integer> row : matrix) {
-            List<Double> newRow = row.stream()
-                    .map(num -> (double) num - diagonalMean)
+        List<List<Double>> resultMatrix = new ArrayList<>(); // Инициализируем результирующую матрицу
+        for (List<Integer> row : matrix) { // Перебираем строки
+            List<Double> newRow = row.parallelStream() // parallelStream
+                    .map(num -> (double) num - diagonalMean) // Вычитаем среднее диагонали
                     .collect(Collectors.toList());
             resultMatrix.add(newRow);
         }
         // Вывод результирующей матрицы
         System.out.println("\nМатрица после вычитания среднего арифметического главной диагонали:");
-        for (List<Double> row : resultMatrix) {
-            System.out.println(row.stream()
-                    .map(num -> String.format("%.2f", num))
+        for (List<Double> row : resultMatrix) { // Перебираем строки результирующей матрицы
+            System.out.println(row.parallelStream() // parallelStream
+                    .map(num -> String.format("%.2f", num)) // Форматируем числа до двух знаков
                     .collect(Collectors.toList()));
         }
         scanner.close();

@@ -10,9 +10,9 @@ import java.util.Scanner;
 
 public class Matrix_1 {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        var scanner = new Scanner(System.in);
         // Запрашиваем количество строк и столбцов
-        System.out.print("Введите количество строк матрицы: ");
+        System.out.print("Введите количество строк матрицы:  ");
         int rows = scanner.nextInt();
         System.out.print("Введите количество столбцов матрицы: ");
         int cols = scanner.nextInt();
@@ -74,7 +74,7 @@ public class Matrix_1 {
         // Вычисление суммы отрицательных элементов в каждом столбце с использованием Stream API
         for (int j = 0; j < cols; j++) {
             final int colIndex = j;
-            int negativeSum = matrix.stream()
+            int negativeSum = matrix.parallelStream()
                     .mapToInt(row -> row.get(colIndex)) // Извлекаем элементы j-го столбца
                     .filter(num -> num < 0)            // Фильтруем отрицательные элементы
                     .sum();                            // Суммируем

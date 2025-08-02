@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 public class Matrix_2 {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        var scanner = new Scanner(System.in);
         // Запрашиваем количество строк и столбцов
         System.out.print("Введите количество строк матрицы: ");
         int rows = scanner.nextInt();
@@ -69,20 +69,20 @@ public class Matrix_2 {
         }
         // Вывод матрицы для проверки
         System.out.println("\nВаша матрица:");
-        for (List<Integer> row : matrix) {
-            System.out.println(row);
+        for (List<Integer> row : matrix) { // Перебираем строки матрицы
+            System.out.println(row); // Выводим каждую строку
         }
         // Вычисление частот чисел в каждой строке
         System.out.println("\nЧастоты чисел в каждой строке (упорядочены по убыванию частоты):");
-        for (int i = 0; i < rows; i++) {
-            // Создаем словарь частот для текущей строки с использованием Stream API
-            Map<Integer, Long> frequencyMap = matrix.get(i).stream()
+        for (int i = 0; i < rows; i++) { // Перебираем строки
+            // Создаем словарь частот для текущей строки
+            Map<Integer, Long> frequencyMap = matrix.get(i).parallelStream()
                     .collect(Collectors.groupingBy(
                             num -> num, // Ключ - число
                             Collectors.counting() // Значение - частота
                     ));
             // Сортируем словарь по убыванию частоты, а при равных частотах - по числу
-            Map<Integer, Long> sortedFrequencyMap = frequencyMap.entrySet().stream()
+            Map<Integer, Long> sortedFrequencyMap = frequencyMap.entrySet().parallelStream()
                     .sorted((e1, e2) -> {
                         int compareByCount = e2.getValue().compareTo(e1.getValue()); // По убыванию частоты
                         if (compareByCount == 0) {
